@@ -24,8 +24,9 @@
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile.structure-1.4.1.min.css" />
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script type="text/javascript" src="js/jquery.min.js"></script>
         <script type="text/javascript" src="js/jquery.mobile-1.4.1.min.js"></script>
@@ -33,27 +34,29 @@
         <title>Hello World</title>
     </head>
     <body>
-        <div ng-controller="TodoCtrl" class="container-fluid">
-            <div class="row" id="todoList">
-                <div class="col-md-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">Всего:{{getTotalTodos()}}</div>
-                        <ul class="list-group">
-                            <li class="list-group-item checkbox" ng-repeat="todo in todos">
-                                <label class="done-{{todo.done}}">
-                                    <input type="checkbox" ng-model="todo.done">
-                                    {{todo.text}}
-                                </label>
-                            </li>
-                        </ul>
-                        <form class="form-inline">
-                            <div class="form-group"><input type="text" class="form-control input-lg"  ng-model="formTodoText" ng-model-instant /></div>
-                            <div class="form-group"><button type="button" class="addBtn btn btn-primary" ng-click="addTodo()" />+</button></div>
-                        </form>
-                    </div>
-                </div>
+        <div ng-controller="TodoCtrl" data-role="page" data-theme="a">
+            <div data-role="header" data-position="inline">
+                <h1>Список покупок ({{getTotalTodos()}})</h1>   
+                <a data-icon="delete" data-theme="c" ng-click="clearAll()">Очистить</a>
+                <a data-icon="check" data-theme="d" ng-click="updateAll()">Обновить</a>
             </div>
-        </div>
-        <script type="text/javascript" src="js/index.js"></script>
+            
+            <div data-role="content" data-theme="a">
+                <form class="">                    
+                    <input type="text" class="" ng-model="formTodoText" ng-model-instant />
+                        <button type="button" class="addBtn btn btn-lg btn-primary" ng-click="addTodo()" />+</button>
+                </form>
+                <ul data-role="listview" data-inset="true" data-divider-theme="a">
+                    <li ng-repeat="todo in todos">   
+                        
+                        <input name="todo_item_{{$index}}" id="todo_item_{{$index}}" type="text" class="done-{{todo.done}}" value="{{todo.text}}"
+                               ng-dblclick="chDone($index)" ng-model="todo.text" ng-change="edit($index)"/>                      
+                    </li>
+                    <li>Щелкните два раза, чтобы совершить покупку</li>
+                </ul>
+                
+            </div>
+            
+            <script type="text/javascript" src="js/index.js"></script>
     </body>
 </html>
