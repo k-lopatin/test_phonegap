@@ -17,27 +17,43 @@
     specific language governing permissions and limitations
     under the License.
 -->
-<html>
+<html ng-app>
     <head>
         <meta charset="utf-8" />
         <meta name="format-detection" content="telephone=no" />
         <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
         <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+        <script type="text/javascript" src="js/angular.min.js"></script>
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.1.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <title>Hello World</title>
     </head>
     <body>
-        <div class="app">
-            <h1>PhoneGap</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+        <div ng-controller="TodoCtrl" class="container-fluid">
+            <div class="row" id="todoList">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Всего:{{getTotalTodos()}}</div>
+                        <ul class="list-group">
+                            <li class="list-group-item checkbox" ng-repeat="todo in todos">
+                                <label class="done-{{todo.done}}">
+                                    <input type="checkbox" ng-model="todo.done">
+                                    {{todo.text}}
+                                </label>
+                            </li>
+                        </ul>
+                        <form class="form-inline">
+                            <div class="form-group"><input type="text" class="form-control input-lg"  ng-model="formTodoText" ng-model-instant /></div>
+                            <div class="form-group"><button type="button" class="addBtn btn btn-primary" ng-click="addTodo()" />+</button></div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
-        <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
-        <script type="text/javascript">
-            app.initialize();
-        </script>
     </body>
 </html>
